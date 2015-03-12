@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meng.po.Course">
+	<resultMap type="com.meng.po.Course" id="couMap">
+		<id property="cid" column="cid" />
+		<result property="cname" column="cname" />
+	</resultMap>
+	
+	<resultMap type="com.meng.po.Course" id="stuResult" extends="couMap">
+			<collection property="student" ofType="com.meng.po.Student">
+				<id property="sid" column="sid" />
+				<result property="sname" column="sname" />
+			</collection>
+	</resultMap>
+	
+	<insert id="cou_add" parameterType="com.meng.po.Course">
+		insert into course(cname)
+		values(#{cname})
+	</insert>
+	
+	<select id="cou_select" parameterType="com.meng.po.Course"
+		resultType="com.meng.po.Course">
+		select cid,cname from course
+	</select>
+	
+	<select id="cou_selectwhere" parameterType="com.meng.po.Course"
+		resultType="com.meng.po.Course">
+		select cid,cname from course where cid=#{cid}
+	</select>
+	
+	<!--查询学生的选课信息  -->
+	<select id="stuAndCou" parameterType="com.meng.po.StuCour" resultMap="stuResult">
+		select sc.cid,sc.sid,c.cname,s.sname from stucou sc, course c,student s
+		 where sc.cid=c.cid and sc.sid=s.sid
+	</select>
+	
+	<insert id="courseInsert" parameterType="com.meng.po.Course" >
+		insert into course(cname) values(#{cname})
+	</insert>
+</mapper>

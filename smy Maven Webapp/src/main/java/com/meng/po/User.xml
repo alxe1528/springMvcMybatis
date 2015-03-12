@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meng.po.User">
+	<insert id="user_add" parameterType="com.meng.po.User">
+		insert into user(uname,pwd) values(#{uname},#{pwd})
+	</insert>
+	<select id="user_select" parameterType="com.meng.po.User" resultType="com.meng.po.User">
+		select id,uname,pwd from user
+	</select>
+	<delete id="user_del" parameterType="int">
+		delete from user where id=#{id} 
+	</delete>
+	<update id="user_up" parameterType="int">
+		update user set uname=#{uname},pwd=#{pwd} where id=#{id}
+	</update>
+</mapper>
